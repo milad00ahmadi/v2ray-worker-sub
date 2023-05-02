@@ -15,12 +15,12 @@
 
 نمونه‌ی مسیرهایی که بعد از ساخت ورکر باید در بخش ساب اپ کلاینت خود وارد کنید به شکل زیر می‌باشد:
 
-https://my-worker.my-id.workers.dev/sub
+https://my-worker.my-id.workers.dev/sub.[SECRET]
 
 
 میتوانید در ادامه، کد سه حرفی اپراتور را وارد کنید تا آی‌پی تمیز اپراتور مربوطه به کانفیگ شما اضافه شود. برای مثال، همراه اول:
 
-https://my-worker.my-id.workers.dev/sub/mci
+https://my-worker.my-id.workers.dev/sub.[SECRET]/mci
 
 
 لیست کدهای سه حرفی اپراتورها به شرح زیر است:
@@ -49,11 +49,11 @@ ztl         | زیتل
 
 می توانید در انتهای لینک، آی‌پی تمیز خود را قراردهید مثل زیر:
 
-https://my-worker.my-id.workers.dev/sub/162.159.135.87
+https://my-worker.my-id.workers.dev/sub.[SECRET]/162.159.135.87
 
 و یا می توانید آدرس دامین آی‌پی تمیز خود را بدهید:
 
-https://my-worker.my-id.workers.dev/sub/ip.my-domain.com
+https://my-worker.my-id.workers.dev/sub.[SECRET]/ip.my-domain.com
 
 در صورتی که از دامنه‌ی شخصی برای ورکر استفاده می کنید هم به همین شکل، فقط به جای دامین ورکر از سابدامین خودتان استفاده کنید:
 
