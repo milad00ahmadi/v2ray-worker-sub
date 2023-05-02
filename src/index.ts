@@ -5,7 +5,9 @@
   */
 
 const MAX_CONFIGS = 1000
+const SECRET = "abc"
 const INCLUDE_ORIGINAL = true
+const SECRET_REGEX = /(?<type>.*?)\.(?<pass>.*)/gm 
 
 const configProviders: Array<any> = [
   {
@@ -134,8 +136,22 @@ export default {
     const url = new URL(request.url)
     const path = url.pathname.replace(/^\/|\/$/g, "")
     const parts = path.split("/")
-    const type = parts[0].toLowerCase()
+    const firstSegmant = parts[0].toLowerCase()
+    let type = ""
+    let providedSecret = "";
+    let secretRegexResult = SECRET_REGEX.exec(firstSegmant)
+    if (secretRegexResult != null &&
+      secretRegexResult.groups != undefined) {
+      type = secretRegexResult.groups.type.toLocaleLowerCase()
+      providedSecret = secretRegexResult.groups.pass.toLocaleLowerCase()
+    } else {
+      type = firstSegmant
+    }
+
     if (type === "sub") {
+      if (providedSecret != SECRET.toLocaleLowerCase()) {
+        return new Response('Unauthorized', {status: 403})
+      }
       if (parts[1] !== undefined) {
         if (parts[1].includes(".")) { // Subdomain or IP
           cleanIPs = parts[1].toLowerCase().trim().split(",").map((ip: string) => {return {ip: ip, operator: "IP"}})
@@ -237,8 +253,7 @@ export default {
       // return new Response(finalConfigList.join("\n"))
       return new Response(Buffer.from(finalConfigList.join("\n"), "utf-8").toString("base64"))
     } else if (path) {
-      var newUrl = new URL("https://" + url.pathname.replace(/^\/|\/$/g, ""))
-      return fetch(new Request(newUrl, request))
+      return new Response('404')
     } else {
       return new Response(`\
 <!DOCTYPE html>
